@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+  <style> body { margin: 0; } </style>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+ <meta content="utf-8" http-equiv="encoding">
+ <script src="https://unpkg.com/dat.gui"></script>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone"></script>
+
+  <script src="https://unpkg.com/three"></script>
+  <script src="https://unpkg.com/three-spritetext"></script>
+
+  <script src="https://unpkg.com/react-force-graph-3d"></script>
+  <!--<script src="../../src/packages/react-force-graph-3d/dist/react-force-graph-3d.js"></script>-->
+</head>https:
+
+<body>
+  <div id="graph"></div>
+
+
+  
+<script type="text/jsx">
+  const { useRef, useCallback } = React;
+  
+
+  const { useMemo, useState } = React;
+  const NODE_R = 8;
+  
+
+  fetch('http://localhost:5000/getData').then(res => res.json()).then(data => {
+    const FocusGraph = () => {
+     
+    
+       return <ForceGraph3D
+      graphData={data}
+      nodeAutoColorBy="group"
+      nodeThreeObject={node => {
+        const sprite = new SpriteText(node.id);
+        sprite.color = node.color;
+        sprite.textHeight = 8;
+        return sprite;
+      }}
+    />
+    };
+
+    ReactDOM.render(
+      <FocusGraph />,
+      document.getElementById('graph')
+    );
+  });
+</script>
+</body>
